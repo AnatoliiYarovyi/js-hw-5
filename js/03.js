@@ -1,45 +1,65 @@
-const add = (accum, element) => accum + element;
-const mult = (accum, element) => accum * element;
-const sub = (accum, element) => accum - element;
-
-function reduceArray(array, cb, initial) {
-  'use strict';
-  let i;
-  let accum;
-  if (arguments.length >= 3) {
-    accum = initial;
-    i = 0;
+// Write code under this line
+class Storage {
+  constructor(items) {
+    this.items = items;
   }
-  if (arguments.length === 2) {
-    accum = array[0];
-    i = 1;
+  getItems() {
+    console.log(this.items);
   }
-  for (i; i < array.length; i += 1) {
-    const element = array[i];
-    // Write code under this line
-    accum = cb(accum, element);
+  addItem(item) {
+    this.items.push(item);
+    return this.items;
   }
-  return accum;
+  removeItem(item) {
+    for (let i = this.items.length; i--; ) {
+      if (this.items[i] === item) {
+        return this.items.splice(i, 1);
+      }
+    }
+  }
 }
+console.log(typeof Storage);
+// 'function'
 
-const arr = [1, 2, 3, 4, 5];
+const goods = ['Нанитоиды', 'Пролонгер', 'Железные жупи', 'Антигравитатор'];
 
-console.log(reduceArray(arr, add)); // 15
-console.log(reduceArray(arr, add, 10)); // 25
+const storage = new Storage(goods);
 
-console.log(reduceArray(arr, mult)); // 120
-console.log(reduceArray(arr, mult, 10)); // 1200
+console.log(storage.getItems());
+/* [
+  'Нанитоиды',
+  'Пролонгер',
+  'Железные жупи',
+  'Антигравитатор'
+] */
 
-console.log(reduceArray(arr, sub)); // -13
-console.log(reduceArray(arr, sub, 10)); // -5
+storage.addItem('Дроид');
+console.log(storage.getItems());
+/* [
+  'Нанитоиды',
+  'Пролонгер',
+  'Железные жупи',
+  'Антигравитатор',
+  'Дроид'
+] */
 
-// ----------------------------------------------------------------------------------------------------------
-// ======== Задача 4 - 3 ========
-// ------------------ Callback функция для получения одного вычисляемого значения массива -------------
-// Функции add, sub и mult принимают два параметра - accum и element,
-// возвращает число - сумму, разность или произведение параметров.
+storage.removeItem('Пролонгер');
+console.log(storage.getItems());
+/* [
+  'Нанитоиды',
+  'Железные жупи',
+  'Антигравитатор',
+  'Дроид'
+] */
 
-// Дополни тело функции reduceArray строкой присвоения accum вызова функции cb.
-// Функция reduceArray должна будет подсчитать сумму или разность или
-// произведение всех элементов массива в зависимости от того какая именно
-// из трех функция(add, mult, sub) будет передана в качестве cb.
+// ------------------------------------------------------------------------------------------
+// ===== Задача 5-3 =====
+// ------ использование методов класса -----
+// Напиши класс Storage, который будет создавать объекты для управления складом товаров.
+// При вызове будет получать один аргумент - начальный массив товаров, и записывать его в свойство items.
+
+// Добавь методы класса:
+
+// getItems() - возвращает массив текущих товаров
+// addItem(item) - получает новый товар и добавляет его к текущим
+// removeItem(item) - получает товар и, если он есть, удаляет его из текущих
